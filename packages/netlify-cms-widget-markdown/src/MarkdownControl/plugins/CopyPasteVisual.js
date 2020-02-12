@@ -1,6 +1,6 @@
 import { Document } from 'slate';
 import { setEventTransfer } from 'slate-react';
-import base64 from 'slate-base64-serializer';
+// import base64 from 'slate-base64-serializer';
 import isHotkey from 'is-hotkey';
 import { slateToMarkdown, markdownToSlate, htmlToSlate, markdownToHtml } from '../../serializers';
 
@@ -11,7 +11,8 @@ const CopyPasteVisual = ({ getAsset, resolveWidget }) => {
     const html = await markdownToHtml(markdown, { getAsset, resolveWidget });
     setEventTransfer(event, 'text', markdown);
     setEventTransfer(event, 'html', html);
-    setEventTransfer(event, 'fragment', base64.serializeNode(editor.value.fragment));
+    // setEventTransfer(event, 'fragment', base64.serializeNode(editor.value.fragment));
+    setEventTransfer(event, 'fragment', '');
     event.preventDefault();
   };
 
@@ -23,8 +24,9 @@ const CopyPasteVisual = ({ getAsset, resolveWidget }) => {
       }
 
       if (data.types.includes('application/x-slate-fragment')) {
-        const fragment = base64.deserializeNode(data.getData('application/x-slate-fragment'));
-        return editor.insertFragment(fragment);
+        return editor;
+        // const fragment = base64.deserializeNode(data.getData('application/x-slate-fragment'));
+        // return editor.insertFragment(fragment);
       }
 
       const html = data.types.includes('text/html') && data.getData('text/html');
